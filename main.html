@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BeatBlock Explorer</title>
+
+  <!-- <link rel="stylesheet" type="text/css" href="beatblock-playlist-styles.css" /> -->
+  <link rel="stylesheet" type="text/css" href="main.css" />
+
+  <!-- butterchurn -->
+  <script src='butterchurn.js'></script>
+
+  <!-- load remote script -->
+  <!-- <script src="/bb-utils-load-remote.min.js"></script> -->
+  <script src="load.js"></script>
+
+  <!-- load recent child script -->
+  <!-- <script src="/bb-utils-load-recent-child-script.js"></script> -->
+  <script src="child.js"></script>
+
+  <!-- wallet-modal -->
+  <script src="wallet-modal.js"></script>
+
+</head>
+<header>
+    <button id="connectButton" class="connect-button">
+      <img src="green_laser.svg" alt="Connect">
+      <span id="connect-status">Connect Wallet</span>
+    </button>
+</header>
+<body>
+  <div id="walletModal" class="modal">
+    <div class="modal-content">
+      <div class="winamp-header">
+          <div class="title">Choose Wallet</div>
+          <span class="close-modal">&times;</span>
+      </div>
+      <div class="wallet-options">
+          <button class="wallet-option"><img src="xverse.svg" style="width: 20px; height: 20px;" alt="Xverse"/> Xverse</button>
+          <button class="wallet-option"><img src="oyl.svg" style="width: 25px; height: 25px;" alt="Oyl"/> Oyl</button>
+          <button class="wallet-option"><img src="uni.svg" style="width: 25px; height: 25px;" alt="Unisat"/> Unisat</button>
+          <button class="wallet-option">MagicEden</button>
+          <button class="wallet-option">Leather</button>
+          <button class="wallet-option">OKX</button>
+          <button class="wallet-option">OP_NET</button>
+          <button class="wallet-option">Orange</button>
+          <button class="wallet-option">Phantom</button>
+          <button class="wallet-option">Wizz</button>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="left-section">
+      <div class="winamp">
+        <div class="winamp-header">
+          <div class="title">BeatBlock Explorer</div>
+          <div class="window-controls">
+            <span id="version">--</span>
+          </div>
+        </div>
+        <div class="main-player">
+          <div class="song-image" id="songImage">
+            <img style="margin: 8px;" id="songImage" src="BeatBlock.png" alt="Artwork for ${songId}" />
+          </div>
+          <div class="player-info">
+            <div id="songDisplay" class="song-display"><span style="color: orange;">loading...</span></div>
+            <div class="sliders">
+              <div class="slider-container disabled">
+                <input type="range" id="volumeSlider" class="slider volume" min="0" max="1" step="0.01" value=".6" disabled>
+                <div class="slider-label">VOL</div>
+              </div>
+              <div class="slider-container disabled">
+                <input type="range" id="balanceSlider" class="slider balance" min="-1" max="1" step="0.01" value="0" disabled>
+                <div class="slider-label">BAL</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="controls" id="controls" style="margin-top: 10px; display: flex;">
+          <button id="play" class="play" disabled>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </button>
+          <button id="stop" class="stop" disabled>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="6" y="6" width="12" height="12"></rect>
+            </svg>
+          </button>
+          <button id="regenerate" class="regenerate" disabled>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10"></polyline>
+              <polyline points="1 20 1 14 7 14"></polyline>
+              <path d="M3.51 9a9 9 0 0 1 14.36-4.47L23 10"></path>
+              <path d="M20.49 15a9 9 0 0 1-14.36 4.47L1 14"></path>
+            </svg>
+          </button>
+          <button id="toggleVisualizer" disabled>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </button>
+          <button id="toggleAlbumArt" disabled>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+              <circle cx="9" cy="9" r="2"></circle>
+              <path d="M21 15l-5-5L5 21"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div id="visualizerContainer" class="visualizer-window hidden"></div>
+      <div class="playlist-section">
+        <div class="winamp-header">
+          <div class="title">Playlist</div>
+          <div class="window-controls">
+            <button class="minimize"></button>
+            <button class="close"></button>
+          </div>
+        </div>
+        <ul id="playlistItems" class="playlist-items">
+          <span style="color: orange;">loading...</span>
+        </ul>
+      </div>
+      <div class="search-section">
+        <div class="search-container">
+          <input id="inscriptionId" type="text" class="search-input" style="font-size: 10px;" placeholder="enter BeatBlock insc. id" />
+          <button id="fetch" class="fetch-button">Fetch</button>
+        </div>
+        <input type="file" id="jsonUpload" accept=".json" class="search-input" style="font-size: 10px;" />
+      </div>
+    </div>
+    <div class="visualizer-window" style="overflow: hidden;">
+      <div class="winamp-header">
+        <div class="title">Visualizer</div>
+        <div class="window-controls">
+          <button class="minimize hidden"></button>
+          <button class="close hidden"></button>
+
+          <span id="vis-info">info</span>
+        </div>
+      </div>
+      <canvas id="visualizerCanvas"></canvas>
+      <img style="width: 100%; height: 100%; z-index: 10000; position: absolute; pointer-events: none;" src="BeatBlock.png" alt="Artwork for ${songId}" id="songImageContainer" />
+      <button class="fullscreen-button" id="fullscreen-button">Fullscreen</button>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      (async () => {
+        try {
+          console.log('loading scripts...')
+          // beatblock script.js
+          // await loadRecentChildScript("0988d7ffdc98d65329f07aa2a483fec9409e9271f52ecaf412a2a8e5cf471029i0", 'https://ordinals.fractalbitcoin.io')
+          // await loadRemoteScript('/script.js')
+          await loadRemoteScript('beatBlock.js')
+
+          // butterchurnPresetsMinimal
+          await loadRemoteScript('butterchurn.js')
+
+          // beatblock setup
+          // await loadRecentChildScript('4e66baaf19902df97dddc9c87f8a6ed0d3e64876a3ae91e1c9f87e85a8f4a200i0', 'https://ordinals.fractalbitcoin.io')
+          await loadRemoteScript('RecentChildScript.js')
+
+          // beatblock visualizer
+          // await loadRemoteScript('/beatblock-playlist-visualizer.js')
+          await loadRemoteScript('playlist.js')
+          // await loadRecentChildScript('f4ed1c1153e2e9825454e80951662e6e6cd384ce9bb09e992acbd1bbc05a0a46i0', 'https://ordinals.fractalbitcoin.io')
+          // await loadRecentChildScript("6f158d397becd741f3ca0579ed7d68791907b39b990563392e8df7810a2558fdi0", true)
+          console.log('scripts loaded')
+        } catch (e) {
+          console.log('error loading scripts', e)
+        }
+      })();
+    })
+  </script>
+</body>
+
+</html>
