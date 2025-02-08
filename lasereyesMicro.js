@@ -1,4 +1,5 @@
 const initializeWalletHandlers = () => {
+
   //Xverse
   document.getElementById('xverseButton').addEventListener('click', async () => {
     try {
@@ -45,6 +46,7 @@ const initializeWalletHandlers = () => {
       console.error('Error stack:', e.stack);
     }
   });
+
   //Unisat
   document.getElementById('unisatButton').addEventListener('click', async () => {
     try {
@@ -67,6 +69,7 @@ const initializeWalletHandlers = () => {
       console.log('connect failed');
     }
   });
+
   //Oyl
   document.getElementById('oylButton').addEventListener('click', async () => {
     try {
@@ -81,6 +84,7 @@ const initializeWalletHandlers = () => {
       console.error('Connect error:', e.message);
     }
   });
+
   //Leather
   document.getElementById('leatherButton').addEventListener('click', async () => {
     try {
@@ -95,7 +99,7 @@ const initializeWalletHandlers = () => {
       console.error('Connect error:', e.message);
     }
   });
-  //MagicEden
+  //MagicEden (does not work)
   document.getElementById('magicEdenButton').addEventListener('click', async () => {
     try {
       if (typeof window.magicEden.bitcoin !== 'undefined') {

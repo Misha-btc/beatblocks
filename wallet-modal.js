@@ -177,7 +177,6 @@ class WalletModal {
   }
 
   createModal() {
-    // Создаем header и кнопку подключения
     const header = document.createElement('header');
     const connectButton = document.createElement('button');
     connectButton.id = 'connectButton';
@@ -195,7 +194,6 @@ class WalletModal {
     connectButton.appendChild(span);
     header.appendChild(connectButton);
     
-    // Создаем модальное окно
     const modal = document.createElement('div');
     modal.id = 'walletModal';
     modal.className = 'modal';
@@ -221,7 +219,6 @@ class WalletModal {
         </div>
     `;
 
-      // Добавляем элементы в DOM
     document.body.insertBefore(header, document.body.firstChild);
     document.body.appendChild(modal);
   }
@@ -245,19 +242,16 @@ class WalletModal {
         }
     });
 
-      // Добавляем обработчики для кнопок кошельков
     const walletButtons = document.querySelectorAll('.wallet-option');
     walletButtons.forEach(button => {
       button.addEventListener('click', () => {
           console.log(`Selected wallet: ${button.textContent.trim()}`);
           modal.style.display = 'none';
-          // Здесь можно добавить логику подключения конкретного кошелька
       });
     });
   }
 }
 
-// Инициализация модального окна при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
   new WalletModal();
 });
